@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 16:07:10 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/05/17 16:18:27 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/05/17 22:01:16 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	}
 	return (ptr);
 }
-/*
-#include <string.h>
-#include <stdio.h>
-int main()
-{
-	printf("%s\n",ft_strtrim("", "c"));
-}*/

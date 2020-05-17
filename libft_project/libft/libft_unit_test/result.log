@@ -56,21 +56,7 @@ Test code:
 	exit(TEST_FAILED);
 
 
-ft_itoa:       [OK] [OK] [OK] [FAILED] [OK] [OK] [KO] [KO] [OK] 
-[fail]: your itoa does not work with min int
-Test code:
-	char *i1 = ft_itoa((-2147483647 -1));
-
-	if (atoi(i1) != (-2147483647 -1))
-	{
-		exit(TEST_FAILED);
-	}
-	exit(TEST_SUCCESS);
-
-Diffs:
-        itoa: |-./,),(-*,(|
-     ft_itoa: |0|
-
+ft_itoa:       [OK] [OK] [OK] [OK] [OK] [OK] [KO] [KO] [OK] 
 [KO]: your itoa does not allocate the good size so the \0 test may be false
 Test code:
 	int size;
@@ -84,7 +70,7 @@ Test code:
 
 Diffs:
         itoa: |6|
-     ft_itoa: |48|
+     ft_itoa: |40|
 
 [KO]: your itoa does not allocate the good size so the \0 test may be false
 Test code:
@@ -99,7 +85,7 @@ Test code:
 
 Diffs:
         itoa: |2|
-     ft_itoa: |16|
+     ft_itoa: |8|
 
 ft_strmapi:    [OK] [OK] [OK] [OK] [OK] {protected}
 ft_putchar_fd: [OK] [OK] [KO] 

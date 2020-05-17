@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 17:25:06 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/05/11 17:25:09 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/05/17 22:12:45 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	**ft_split(char const *s, char c)
 
 	s_trim = ft_strtrim(s, &c);
 	length = cnumb(s_trim, c) + 1 + 1;
-	ptr = malloc(sizeof(char**) * length);
+	ptr = malloc(sizeof(char**) * length + 1);
 	if (ptr != NULL)
 		ptr = ft_splitter(s_trim, ptr, c);
 	if (ptr != NULL)
