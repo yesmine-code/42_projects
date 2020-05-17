@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 20:49:48 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/05/17 16:30:47 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/05/17 21:30:29 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,23 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	size_t	i;
-	char	*dest_local;
-	char	*src_local;
+	unsigned char		*s1;
+	const unsigned char	*s2;
 
-	i = 0;
-	dest_local = (char *)dest;
-	src_local = (char *)src;
-	if (src_local < dest_local)
-	{
-		while (i++ <= n)
-		{
-			dest_local[n - i] = src_local[n - i];
-		}
-	}
+	s1 = (unsigned char *)dest;
+	s2 = (unsigned char *)src;
+	if (dest == NULL && src == NULL)
+		return (NULL);
+	if (s2 > s1)
+		ft_memcpy(dest, src, n);
 	else
 	{
-		while (i < n)
+		while (n > 0)
 		{
-			dest_local[i] = src_local[i];
-			i++;
+			s1[n - 1] = s2[n - 1];
+			n--;
 		}
+
 	}
 	return (dest);
 }
