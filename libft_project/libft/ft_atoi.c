@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/02 21:49:00 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/05/15 16:24:44 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/05/17 16:39:49 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	ft_isspace(char c)
 
 int	ft_atoi(const char *nptr)
 {
-	int	sign;
-	int	result;
-	int	index;
+	int				sign;
+	long long int	result;
+	int				index;
 
 	sign = 1;
 	result = 0;
@@ -41,6 +41,10 @@ int	ft_atoi(const char *nptr)
 	{
 		result = result * 10 + (nptr[index] - '0');
 		index++;
+		if (result > 2147483648 && sign == 1)
+			return (-1);
+		else if (result > 2147483648 && sign == -1)
+			return (0);
 	}
 	return (sign * result);
 }
