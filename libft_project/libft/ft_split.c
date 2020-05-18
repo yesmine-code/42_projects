@@ -19,6 +19,8 @@ int		cnumb(const char *s, char c)
 
 	i = 0;
 	k = 0;
+	if (s == NULL)
+		return (0);
 	while (s[i] != '\0')
 	{
 		if (s[i] == c && s[i + 1] != c)
