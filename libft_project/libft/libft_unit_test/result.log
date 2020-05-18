@@ -24,28 +24,8 @@ ft_calloc:     [OK] [OK] [OK] [OK] [OK]
 ft_strdup:     [OK] [OK] [OK] [OK] [OK] [OK] [OK] 
 ft_substr:     [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] {protected}
 ft_strjoin:    [OK] [OK] [OK] [OK] [OK] {protected}
-ft_strtrim:    [OK] [OK] [OK] [CRASH] [OK] [OK] [OK] [OK] [OK] {protected}
-[crash]: your strtrim does not work with full blank input
-Test code:
-	char *s1 = "  \t \t \n   \n\n\n\t";
-	char *s2 = "";
-	char *ret = ft_strtrim(s1, " \n\t");
-
-	if (!strcmp(ret, s2))
-		exit(TEST_SUCCESS);
-	exit(TEST_FAILED);
-
-
-ft_split:      [OK] [CRASH] [OK] [OK] [OK] [OK] [OK] [CRASH] [OK] {not protected}
-[crash]: your split does not work with full space string
-Test code:
-	char **expected = ((char*[1]){((void *)0)});
-	char *string = "                  ";
-	char **result = ft_split(string, ' ');
-
-	split_cmp_array(expected, result);
-
-
+ft_strtrim:    [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] {protected}
+ft_split:      [OK] [OK] [OK] [OK] [OK] [OK] [OK] [CRASH] [OK] {protected}
 [crash]: you did not protect your split
 Test code:
 	char *s = "      split       this for   me  !       ";

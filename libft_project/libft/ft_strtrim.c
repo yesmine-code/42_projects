@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 16:07:10 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/05/17 22:01:16 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/05/18 02:10:56 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size = ft_strlen(s1);
 	while (size && ft_strchr(set, s1[size]))
 		size--;
+	if (size == 0)
+		return ("");
 	ptr = malloc(sizeof(*ptr) * (size + 1 + 1));
 	if (ptr != NULL)
 	{
