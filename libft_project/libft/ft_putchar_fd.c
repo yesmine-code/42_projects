@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 19:24:30 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/05/17 16:48:26 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/05/19 19:13:08 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 
 void	ft_putchar_fd(char c, int fd)
 {
-		write(fd, &c, 1);
+	write(fd, &c, 1);
 }

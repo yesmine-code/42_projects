@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 20:48:44 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/05/17 15:24:16 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/05/19 19:31:02 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
-	size_t		i;
+	size_t			i;
 	unsigned char	*dest_local;
 	unsigned char	*src_local;
 

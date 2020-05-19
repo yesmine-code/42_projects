@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 17:30:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/05/19 18:45:45 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/05/19 19:26:25 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,12 @@ int		ft_count(int n)
 char	*ft_itoa(int n)
 {
 	char	*str;
-	int		len;
 	int		j;
 	long	nbr;
 
-	len = ft_count(n);
-	j = len;
+	j = ft_count(n);
 	nbr = n;
-	str = malloc(sizeof(char) * (len + 1));
+	str = malloc(sizeof(char) * (ft_count(n) + 1));
 	if (str != NULL)
 	{
 		if (nbr < 0)
@@ -53,7 +51,7 @@ char	*ft_itoa(int n)
 			j--;
 		}
 		str[j - 1] = nbr + '0';
-		str[len] = '\0';
+		str[ft_count(n)] = '\0';
 	}
 	return (str);
 }
