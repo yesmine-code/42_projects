@@ -6,11 +6,12 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 17:30:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/05/17 22:36:52 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/05/19 18:45:45 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 int		ft_count(int n)
 {
@@ -37,7 +38,7 @@ char	*ft_itoa(int n)
 	len = ft_count(n);
 	j = len;
 	nbr = n;
-	str = malloc(sizeof(str) * (len));
+	str = malloc(sizeof(char) * (len + 1));
 	if (str != NULL)
 	{
 		if (nbr < 0)
