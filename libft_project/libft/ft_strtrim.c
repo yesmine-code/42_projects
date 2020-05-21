@@ -20,7 +20,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (!s1 || !set)
 		return (NULL);
 	if (*s1 == '\0')
-		return (NULL);
+		return ((char *)s1);
 	while (*s1 && ft_strchr(set, *s1))
 		s1++;
 	size = ft_strlen(s1);
