@@ -28,10 +28,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 		size--;
 	if (size == 0)
 		return (ft_calloc(1, 1));
-	ptr = malloc(sizeof(*ptr) * (size + 1 + 1));
-	/*if (ptr == NULL)
-		return (NULL);
-	else*/
 	ptr = ft_substr(s1, 0, size + 1);
 	return (ptr);
 }
