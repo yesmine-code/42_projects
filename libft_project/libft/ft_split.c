@@ -104,3 +104,34 @@ char	**ft_split(char const *s, char c)
 		ptr[length - 1] = NULL;
 	return (ptr);
 }
+/*
+#include <stdio.h>
+int main()
+{
+    char **str;
+    char **ptr;
+    char **s;
+
+    str = ft_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ult
+ricies sed, dolor. Cras elementum ultricies diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.", 'i');
+    ptr = ft_split("QGOeKvira6BZ Qn3 vhwSrkx MV2z w5OnjQxWS6cY 49KgCnRQhJzTv 5Xt9 NH6Ly1pTS2U8n3 r8bKxLgmFDacPf9 EPAZyD69QiY2lxMb 6F8BkquZn1v0zma S0AFcvwHx3K 
+erFCbau5qZos uETnkRtFWKq3PXme", ' ');
+    s = ft_split("tC4qEeYLP5uzk SP5 OFrVXauS07N39fn OB0SUkP PtTDZCAh7NI4dcoaj bkgLqH5EW6h KSl2NCgZh 9wGf ELi41Fvg0 SAD5IF", ' ');
+    while (*str)
+    {
+        printf("%s\n", *str);
+        str++;
+    }
+    printf("\n");
+    while (*ptr)
+    {
+        printf("%s\n", *ptr);
+        ptr++;
+    }
+    printf("\n");
+    while (*s)
+    {
+        printf("%s\n", *s);
+        s++;
+    }
+}*/
