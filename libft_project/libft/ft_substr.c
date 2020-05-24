@@ -20,7 +20,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (s == NULL)
 		return (NULL);
 	if (ft_strlen(s) < start)
-		return(ft_strdup(""));
+		return (ft_strdup(""));
 	i = 0;
 	ptr = malloc(sizeof(*ptr) * (len + 1));
 	if (ptr == NULL)
