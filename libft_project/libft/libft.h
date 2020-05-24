@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 22:41:05 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/05/22 23:51:18 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/05/24 20:56:44 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,9 @@ void			ft_putnbr_fd(int n, int fd);
 */
 
 t_list			*ft_lstnew(void *content);
+void			ft_lstadd_front(t_list **alst, t_list *new);
+int				ft_lstsize(t_list *lst);
+t_list			*ft_lstlast(t_list *lst);
+
 
 #endif
