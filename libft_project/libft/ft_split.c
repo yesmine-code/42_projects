@@ -76,7 +76,7 @@ char	**ft_splitter(char *str, char **ptr, char c)
 		else if (str[i] == c && i - n <= 0)
 			n++;
 	}
-	ptr[j++] = ft_substr(str, n, i - n);
+	ptr[j++] = ft_substr(str, n, i - 1 - n);
 	if (ft_check(ptr, j - 1) == 0)
 		return (NULL);
 	return (ptr);
