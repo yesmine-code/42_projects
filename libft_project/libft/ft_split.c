@@ -12,97 +12,86 @@
 
 #include "libft.h"
 
-int		cnumb(const char *s, char c)
+static int		count_words(char const *s, char c)
 {
 	int		i;
-	int		k;
+	int		words;
 
+	words = 0;
 	i = 0;
-	k = 0;
-	if (s == '\0' || *s == '\0')
-		return (-1);
-	while (s[i] != '\0')
+	while (s[i])
 	{
-		if (s[i] == c && s[i + 1] != c)
-		{
-			k++;
-		}
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+			words++;
 		i++;
 	}
-	return (k);
+	return (words);
 }
 
-void	free_all(char **ptr, size_t n)
+static int		words_len(char const *s, char c)
 {
-	size_t	i;
+	int		i;
+	int		len;
 
 	i = 0;
-	while (i < n)
+	len = 0;
+	while (s[i] != c && s[i] != '\0')
 	{
-		free(ptr[i]);
 		i++;
+		len++;
 	}
-	free(ptr);
+	return (len);
 }
 
-int		ft_check(char **ptr, int j)
-{
-	if (ptr[j] == NULL)
-	{
-		free_all(ptr, j);
-		return (0);
-	}
-	return (1);
-}
-
-char	**ft_splitter(char *str, char **ptr, char c)
+static void		*leak(char **splitted, int words)
 {
 	int	i;
-	int	n;
-	int	j;
 
 	i = 0;
-	n = 0;
-	j = 0;
-	while (str[i++] != '\0')
+	while (i < words)
 	{
-		if (str[i] == c && i - n > 0)
-		{
-			ptr[j++] = ft_substr(str, n, i - n);
-			if (ft_check(ptr, j - 1) == 0)
-				return (NULL);
-			n = i + 1;
-		}
-		else if (str[i] == c && i - n <= 0)
-			n++;
+		free(splitted[i]);
+		i++;
 	}
-	ptr[j++] = ft_substr(str, n, i - 1 - n);
-	if (ft_check(ptr, j - 1) == 0)
-		return (NULL);
-	return (ptr);
+	free(splitted);
+	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+static char		**fill(char const *s, int words, char c, char **splitted)
 {
-	char	**ptr;
-	char	*s_trim;
-	int		length;
+	int		i;
+	int		j;
+	int		len;
 
-	if (s == NULL)
+	i = -1;
+	while (++i < words)
+	{
+		while (*s == c)
+			s++;
+		len = words_len(s, c);
+		if (!(splitted[i] = (char *)malloc(sizeof(char) * (len + 1))))
+			return (leak(splitted, i));
+		j = 0;
+		while (j < len)
+			splitted[i][j++] = *s++;
+		splitted[i][j] = '\0';
+	}
+	splitted[i] = NULL;
+	return (splitted);
+}
+
+char			**ft_split(char	const *s, char c)
+{
+	char	**splitted;
+	int		words;
+
+	if (!s)
 		return (NULL);
-	s_trim = ft_strtrim(s, &c);
-	length = cnumb(s_trim, c) + 1 + 1;
-	if (length == 2)
-		ptr = malloc(sizeof(char**) * length);
-	else
-		ptr = malloc(sizeof(char**) * length + 1);
-	if (ptr != NULL && length > 2)
-		ptr = ft_splitter(s_trim, ptr, c);
-	else if (ptr != NULL)
-		ptr[0] = s_trim;
-	if (ptr != NULL)
-		ptr[length - 1] = NULL;
-	return (ptr);
+	words = count_words(s, c);
+	if (!(splitted = (char **)malloc(sizeof(char *) * (words + 1))))
+		return (NULL);
+	splitted = fill(s, words, c, splitted);
+	return (splitted);
 }
 /*
 #include <stdio.h>
