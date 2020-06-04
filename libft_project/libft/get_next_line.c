@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:07:08 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/06/04 00:40:09 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/06/04 13:06:02 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -40,7 +40,7 @@ void	to_free(char **ptr)
 
 char	*ft_realloc(char *ptr, size_t size)
 {
-	void	*ptr2;
+	char	*ptr2;
 
 	if (ptr == NULL)
 	{
@@ -71,13 +71,17 @@ int	get_next_line(int fd, char **line)
 		buf = ft_realloc(buf, BUFFER_SIZE);
 		if(buf == NULL)
 		{
-			to_free(line);
+			free(buf);
 			return (-1);
 		}
 		bytes_read = read(fd, buf + ft_strlen(buf), BUFFER_SIZE);
 		if (bytes_read == 0) //eof
 			return (0);
-
+		else if (bytes_read == -1)
+		{
+			free(buf);
+			return (-1);
+		}
 	}
 	line_length = ft_strchr(buf, '\n') - buf;
 	line[get_matrix_length(line)] = ft_substr(buf, 0, line_length);
@@ -91,7 +95,7 @@ int main(void)
 {
 	char	**ptr;
 	int	i;
-	
+
 	i = 0;
 	ptr = NULL;
 	ptr = malloc(100);
