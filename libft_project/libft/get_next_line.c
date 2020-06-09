@@ -9,24 +9,12 @@
 /*   Updated: 2020/06/04 19:41:35 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 #include "get_next_line.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stddef.h>
 #include <fcntl.h>
-
-int		get_matrix_length(char **ptr)
-{
-	int	i;
-
-	i = 0;
-	while (ptr[i])
-		i++;
-	return (i);
-}
 
 int		to_free(char *ptr)
 {
@@ -79,7 +67,8 @@ int		get_next_line(int fd, char **line)
 			return (to_free(buf));
 	}
 	line_length = ft_strchr(buf, '\n') - buf;
-	line[get_matrix_length(line)] = ft_substr(buf, 0, line_length);
+	tmp = ft_substr(buf, 0, line_length);
+	*line = tmp;
 	tmp = ft_strdup(ft_strchr(buf, '\n') + 1);
 	free(buf);
 	buf = tmp;
