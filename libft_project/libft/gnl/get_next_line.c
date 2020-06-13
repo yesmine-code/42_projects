@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:07:08 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/06/04 19:41:35 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/06/14 00:00:57 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -32,7 +32,7 @@ char	*ft_realloc(char *ptr, size_t size)
 	if (ptr == NULL)
 		final_size = size;
 	else
-		final_size = size + sizeof(ptr);
+		final_size = size + ft_strlen(ptr) + 1;
 	ptr2 = malloc(final_size);
 	if (ptr2 != NULL)
 	{
@@ -53,7 +53,7 @@ int		get_next_line(int fd, char **line)
 	int			bytes_read;
 	int			line_length;
 
-	if (fd < 0)
+	if (fd < 0 || line == NULL)
 		return (-1);
 	while (buf == NULL || (!(ft_strchr(buf, '\n'))))
 	{
@@ -62,7 +62,16 @@ int		get_next_line(int fd, char **line)
 			return (to_free(buf));
 		bytes_read = read(fd, buf + ft_strlen(buf), BUFFER_SIZE);
 		if (bytes_read == 0)
-			return (0);
+		{
+			if (ft_strlen(buf) == 0)
+				return (0);
+			else
+			{
+				*line = ft_strdup(buf);
+				buf = NULL;
+				return (1);
+			}	
+		}
 		else if (bytes_read == -1)
 			return (to_free(buf));
 	}
@@ -73,14 +82,4 @@ int		get_next_line(int fd, char **line)
 	free(buf);
 	buf = tmp;
 	return (1);
-}
-
-int main()
-{
-	char *ptr[255];
-	int i = 0;
-	int fd = open("text.txt", O_RDONLY);
-	while (get_next_line(fd, ptr) == 1)
-		printf("%s\n", ptr[i++]);
-	close(fd);
 }
