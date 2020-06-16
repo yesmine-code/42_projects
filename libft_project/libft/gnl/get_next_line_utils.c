@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:12:16 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/06/04 19:44:07 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/06/16 10:37:12 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,35 @@ size_t	ft_strlen(const char *str)
 	while (ptr[i] != '\0')
 		i++;
 	return (i);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	str = malloc(sizeof(*str) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (str != NULL)
+	{
+		while (i < ft_strlen(s1))
+		{
+			str[i] = s1[i];
+			i++;
+		}
+		while (j < ft_strlen(s2))
+		{
+			str[i] = s2[j];
+			i++;
+			j++;
+		}
+		str[i] = '\0';
+	}
+	return (str);
 }
 
 char	*ft_strdup(const char *s)

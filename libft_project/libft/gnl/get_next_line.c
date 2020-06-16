@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:07:08 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/06/14 00:00:57 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/06/16 14:18:46 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -22,28 +22,23 @@ int		to_free(char *ptr)
 	return (-1);
 }
 
-char	*ft_realloc(char *ptr, size_t size)
+char	*append_buf(int fd, char *buf, int *bytes_read)
 {
-	char	*ptr2;
-	int		final_size;
-	int		i;
+	char	tmp[BUFFER_SIZE + 1];
+	char	*result;
 
-	i = 0;
-	if (ptr == NULL)
-		final_size = size;
-	else
-		final_size = size + ft_strlen(ptr) + 1;
-	ptr2 = malloc(final_size);
-	if (ptr2 != NULL)
+	*bytes_read = read(fd, tmp, BUFFER_SIZE);
+	if (*bytes_read > 0)
 	{
-		while (i < final_size)
-			ptr2[i++] = 0;
-		if (ptr)
-			ft_strlcpy(ptr2, ptr, ft_strlen(ptr) + 1);
+		tmp[*bytes_read] = '\0';
+		if (buf == NULL)
+			result = ft_strdup(tmp);
+		else
+			result = ft_strjoin(buf, tmp);
+		free(buf);
+		buf = result;
 	}
-	if (ptr)
-		free(ptr);
-	return (ptr2);
+	return (buf);
 }
 
 int		get_next_line(int fd, char **line)
@@ -57,13 +52,10 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	while (buf == NULL || (!(ft_strchr(buf, '\n'))))
 	{
-		buf = ft_realloc(buf, BUFFER_SIZE);
-		if (buf == NULL)
-			return (to_free(buf));
-		bytes_read = read(fd, buf + ft_strlen(buf), BUFFER_SIZE);
+		buf = append_buf(fd, buf, &bytes_read);
 		if (bytes_read == 0)
 		{
-			if (ft_strlen(buf) == 0)
+			if (!buf || ft_strlen(buf) == 0)
 				return (0);
 			else
 			{
