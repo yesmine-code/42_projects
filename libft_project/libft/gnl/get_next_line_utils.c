@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:12:16 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/06/16 10:37:12 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/06/17 13:24:49 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,35 +70,6 @@ char	*ft_strdup(const char *s)
 		dest[i] = '\0';
 	}
 	return (dest);
-}
-
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
-{
-	size_t	i;
-
-	i = 0;
-	if (src == NULL)
-	{
-		dest = NULL;
-		return (0);
-	}
-	while (i < size && *src != '\0')
-	{
-		*dest++ = *src++;
-		i++;
-	}
-	if (i < size)
-	{
-		*dest = '\0';
-		return (i);
-	}
-	else if (size > 0)
-	{
-		*(dest - 1) = '\0';
-		return (i + ft_strlen(src));
-	}
-	else
-		return (ft_strlen(src));
 }
 
 char	*ft_strchr(const char *s, int c)

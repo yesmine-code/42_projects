@@ -6,9 +6,10 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:07:08 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/06/16 14:18:46 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/06/17 13:23:25 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line.h"
 #include <unistd.h>
 #include <stdlib.h>
@@ -41,37 +42,40 @@ char	*append_buf(int fd, char *buf, int *bytes_read)
 	return (buf);
 }
 
+int		ft_case_0(char **buf, char **line)
+{
+	if (!*buf || ft_strlen(*buf) == 0)
+		return (0);
+	else
+	{
+		*line = ft_strdup(*buf);
+		free(*buf);
+		*buf = NULL;
+		return (1);
+	}
+}
+
 int		get_next_line(int fd, char **line)
 {
-	static char	*buf;
+	static char	*buf[256];
 	char		*tmp;
 	int			bytes_read;
 	int			line_length;
 
 	if (fd < 0 || line == NULL)
 		return (-1);
-	while (buf == NULL || (!(ft_strchr(buf, '\n'))))
+	while (buf[fd] == NULL || (!(ft_strchr(buf[fd], '\n'))))
 	{
-		buf = append_buf(fd, buf, &bytes_read);
+		buf[fd] = append_buf(fd, buf[fd], &bytes_read);
 		if (bytes_read == 0)
-		{
-			if (!buf || ft_strlen(buf) == 0)
-				return (0);
-			else
-			{
-				*line = ft_strdup(buf);
-				buf = NULL;
-				return (1);
-			}	
-		}
+			return (ft_case_0(&buf[fd], line));
 		else if (bytes_read == -1)
-			return (to_free(buf));
+			return (to_free(buf[fd]));
 	}
-	line_length = ft_strchr(buf, '\n') - buf;
-	tmp = ft_substr(buf, 0, line_length);
-	*line = tmp;
-	tmp = ft_strdup(ft_strchr(buf, '\n') + 1);
-	free(buf);
-	buf = tmp;
+	line_length = ft_strchr(buf[fd], '\n') - buf[fd];
+	*line = ft_substr(buf[fd], 0, line_length);
+	tmp = ft_strdup(ft_strchr(buf[fd], '\n') + 1);
+	free(buf[fd]);
+	buf[fd] = tmp;
 	return (1);
 }
