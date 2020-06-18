@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:07:08 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/06/17 13:23:25 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/06/18 19:47:02 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,17 @@ char	*append_buf(int fd, char *buf, int *bytes_read)
 
 int		ft_case_0(char **buf, char **line)
 {
-	if (!*buf || ft_strlen(*buf) == 0)
+	if (!*buf)
+	{
+		*line = ft_strdup("");
 		return (0);
+	}
 	else
 	{
 		*line = ft_strdup(*buf);
 		free(*buf);
 		*buf = NULL;
-		return (1);
+		return (0);
 	}
 }
 
@@ -62,7 +65,7 @@ int		get_next_line(int fd, char **line)
 	int			bytes_read;
 	int			line_length;
 
-	if (fd < 0 || line == NULL)
+	if (BUFFER_SIZE <= 0 || fd < 0 || line == NULL)
 		return (-1);
 	while (buf[fd] == NULL || (!(ft_strchr(buf[fd], '\n'))))
 	{
