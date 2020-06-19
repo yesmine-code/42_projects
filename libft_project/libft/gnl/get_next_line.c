@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:07:08 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/06/18 19:47:02 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/06/19 23:05:17 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,29 @@ char	*append_buf(int fd, char *buf, int *bytes_read)
 {
 	char	tmp[BUFFER_SIZE + 1];
 	char	*result;
+	char	tmp_buffer[BUFFER_SIZE + 10000];
+	int		offset = 0;
 
-	*bytes_read = read(fd, tmp, BUFFER_SIZE);
-	if (*bytes_read > 0)
+	tmp[0] = 0;
+	while(!(ft_strchr(tmp, '\n')) && offset < 10000)
 	{
-		tmp[*bytes_read] = '\0';
-		if (buf == NULL)
-			result = ft_strdup(tmp);
+		*bytes_read = read(fd, tmp, BUFFER_SIZE);
+		if(*bytes_read > 0)
+		{
+			tmp[*bytes_read] = '\0';
+			ft_strcpy(tmp_buffer + offset, tmp);
+			offset += *bytes_read;
+		}
 		else
-			result = ft_strjoin(buf, tmp);
+			break;
+	}
+	
+	if (offset > 0)
+	{
+		if (buf == NULL)
+			result = ft_strdup(tmp_buffer);
+		else
+			result = ft_strjoin(buf, tmp_buffer);
 		free(buf);
 		buf = result;
 	}
@@ -47,15 +61,14 @@ int		ft_case_0(char **buf, char **line)
 	if (!*buf)
 	{
 		*line = ft_strdup("");
-		return (0);
 	}
 	else
 	{
 		*line = ft_strdup(*buf);
 		free(*buf);
 		*buf = NULL;
-		return (0);
 	}
+	return (0);
 }
 
 int		get_next_line(int fd, char **line)

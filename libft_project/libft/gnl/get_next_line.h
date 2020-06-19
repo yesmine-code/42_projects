@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:10:13 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/06/17 12:53:26 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/06/19 22:19:59 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 size_t	ft_strlen(const char *str);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s);
-size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+char	*ft_strcpy(char *dest, char *src);
 char	*ft_strchr(const char *s, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		get_next_line(int fd, char **line);
