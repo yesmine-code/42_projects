@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:07:08 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/06/19 23:05:17 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/06/21 20:54:29 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,33 +17,26 @@
 #include <stddef.h>
 #include <fcntl.h>
 
-int		to_free(char *ptr)
+char	*ft_strcpy(char *dest, char *src)
 {
-	free(ptr);
-	return (-1);
+	char *begin;
+
+	begin = dest;
+	while (*src)
+	{
+		*dest = *src;
+		dest++;
+		src++;
+	}
+	*dest = '\0';
+	return (begin);
 }
 
-char	*append_buf(int fd, char *buf, int *bytes_read)
+char	*append2(int offset, char *buf, char *tmp_buffer)
 {
-	char	tmp[BUFFER_SIZE + 1];
 	char	*result;
-	char	tmp_buffer[BUFFER_SIZE + 10000];
-	int		offset = 0;
 
-	tmp[0] = 0;
-	while(!(ft_strchr(tmp, '\n')) && offset < 10000)
-	{
-		*bytes_read = read(fd, tmp, BUFFER_SIZE);
-		if(*bytes_read > 0)
-		{
-			tmp[*bytes_read] = '\0';
-			ft_strcpy(tmp_buffer + offset, tmp);
-			offset += *bytes_read;
-		}
-		else
-			break;
-	}
-	
+	result = NULL;
 	if (offset > 0)
 	{
 		if (buf == NULL)
@@ -54,6 +47,31 @@ char	*append_buf(int fd, char *buf, int *bytes_read)
 		buf = result;
 	}
 	return (buf);
+}
+
+char	*append_buf(int fd, char *buf, int *bytes_read)
+{
+	char	tmp[BUFFER_SIZE + 1];
+	char	*result;
+	char	tmp_buffer[BUFFER_SIZE + 5000];
+	int		offset;
+
+	tmp[0] = 0;
+	offset = 0;
+	while (!(ft_strchr(tmp, '\n')) && offset < 5000)
+	{
+		*bytes_read = read(fd, tmp, BUFFER_SIZE);
+		if (*bytes_read > 0)
+		{
+			tmp[*bytes_read] = '\0';
+			ft_strcpy(tmp_buffer + offset, tmp);
+			offset += *bytes_read;
+		}
+		else
+			break ;
+	}
+	result = append2(offset, buf, tmp_buffer);
+	return (result);
 }
 
 int		ft_case_0(char **buf, char **line)
@@ -86,7 +104,10 @@ int		get_next_line(int fd, char **line)
 		if (bytes_read == 0)
 			return (ft_case_0(&buf[fd], line));
 		else if (bytes_read == -1)
-			return (to_free(buf[fd]));
+		{
+			free(buf[fd]);
+			return (-1);
+		}
 	}
 	line_length = ft_strchr(buf[fd], '\n') - buf[fd];
 	*line = ft_substr(buf[fd], 0, line_length);

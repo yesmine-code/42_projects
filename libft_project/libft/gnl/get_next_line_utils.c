@@ -6,26 +6,11 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:12:16 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/06/19 22:21:59 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/06/21 20:54:19 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*ft_strcpy(char *dest, char *src)
-{
-	char *begin;
-
-	begin = dest;
-	while (*src)
-	{
-		*dest = *src;
-		dest++;
-		src++;
-	}
-	*dest = '\0';
-	return (begin);
-}
 
 size_t	ft_strlen(const char *str)
 {

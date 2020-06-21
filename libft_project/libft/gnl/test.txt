@@ -1,1 +1,0 @@
-printf("offset: %d, bytes_read: %d, et retour: %s\n", offset, *bytes_read, ft_strchr(tmp_buffer, '\n'));
