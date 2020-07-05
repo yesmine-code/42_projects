@@ -3,11 +3,11 @@
 //%[flags][width][.precision][length]specifier
 int main()
 {
-	int a = 10;
+	int a = 287412;
 	char b = 'b';
 	char str[]="yesmine";
 
-	printf("%4d %4d %4d\n", a, 130, 15 );
+	printf("%hd\n", a, 130);
 	printf("%4d %4d %4d\n", 170, 1, 15 );
 	printf("----------------\n");
 	printf("%-4d %-4d %-4d\n", a, 130, 15 );
