@@ -7,7 +7,7 @@ int main()
 	char b = 'b';
 	char str[]="yesmine";
 
-	printf("%hd\n", a, 130);
+	printf("%Zu\n", 3);
 	printf("%4d %4d %4d\n", 170, 1, 15 );
 	printf("----------------\n");
 	printf("%-4d %-4d %-4d\n", a, 130, 15 );

@@ -6,19 +6,19 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 20:03:30 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/05 22:31:15 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/06 20:36:44 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-/*
-struct 	s_flags
+
+typedef struct 	s_flags
 {
 	char *flags;
 	char *width;
 	char *precision;
 	char *length;
-	char specifier
+	char specifier;
 }		t_flags;
-*/
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -77,25 +77,25 @@ char	get_specifier(char *format, int *i)
 	return (0);
 }
 
-void	ft_parse(char *format, int	*i)
+t_flags	ft_parse(char *format, int	*i)
 {
 	char	*flags;
 	char	*width;
 	char	*precision;
 	char	*length;
 	char	specifier;
+	t_flags	f;
 
-	flags = get_flags(format, i);
-	printf("flags ok %d\n", *i);
-	width = get_width(format, i);
+	f.flags = get_flags(format, i);
+	f.width = get_width(format, i);
 	if (format[*i] == '.')
 	{
 		*i = *i + 1;
-		precision = get_width(format, i);
+		f.precision = get_width(format, i);
 	}
-	length = get_length(format, i);
-	specifier = get_specifier(format, i);
-	printf("flags : %s\n width : %s\n precision : %s\n length : %s\n specifier : %c\n", flags, width, precision, length, specifier);
+	f.length = get_length(format, i);
+	f.specifier = get_specifier(format, i);
+	return (f);
 }
 
 #include <stdio.h>
@@ -106,9 +106,11 @@ int main()
 {
 	char	*format;
 	int		i;
+	t_flags	f;
 
 	i = 0;
 	format = "-4.*d";
-	ft_parse(format, &i);
+	f = ft_parse(format, &i);
+	printf("flags : %s\n width : %s\n precision : %s\n length : %s\n specifier : %c\n", f.flags, f.width, f.precision, f.length, f.specifier);
 	return (0);
 }
