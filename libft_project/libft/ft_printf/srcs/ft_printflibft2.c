@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:38:36 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/06 22:24:25 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/07 22:11:52 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,18 @@ char	*ft_substr(char const *s, unsigned int start, int len)
 	}
 	ptr[i] = '\0';
 	return (ptr);
+}
+
+void	ft_putstr(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (s == NULL)
+		return ;
+	while (s[i] != '\0')
+	{
+		write(1, &s[i], 1);
+		i++;
+	}
 }

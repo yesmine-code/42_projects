@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 22:35:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/06 23:48:12 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/07 23:07:49 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,21 @@ typedef struct	s_flags
 
 
 t_flags	ft_parse(const char *format, int	*i);
+void	ft_putstr(char *s);
+char    *ft_itoa(int n);
+char	*ft_strdup(const char *s);
+
+void	ft_free_struct(t_flags flags)
+{
+	if (flags.flags != NULL)
+		free(flags.flags);
+	if (flags.width != NULL)
+		free(flags.width);
+	if (flags.precision != NULL)
+		free(flags.precision);
+	if (flags.length != NULL)
+		free(flags.length);
+}
 
 int		ft_read_star_parameter(char *flags, va_list list)
 {
@@ -46,6 +61,18 @@ int		ft_read_star_parameter(char *flags, va_list list)
 	return (star_arg);
 }
 
+char	*read_specifier(t_flags flags, va_list list)
+{
+	int	arg;
+
+	if (flags.specifier == 'd')
+	{
+		arg = va_arg(list, int);
+		return (ft_itoa(arg));
+	}
+	return (ft_strdup(""));
+}
+
 int		ft_printf(const char *format, ...)
 {
 	int		i;
@@ -53,6 +80,7 @@ int		ft_printf(const char *format, ...)
 	va_list	list;
 	int		star_width_arg;
 	int		star_precision_arg;
+	char	*specifier;
 
 	i = 0;
 	va_start(list, format);
@@ -62,9 +90,15 @@ int		ft_printf(const char *format, ...)
 		{
 			i++;
 			flags = ft_parse(format, &i);
+		//	printf("flags.width : %s  flags.precision : %s\n", flags.width, flags.precision);
 			star_width_arg = ft_read_star_parameter(flags.width, list);
 			star_precision_arg = ft_read_star_parameter(flags.precision, list);
-			printf("star_width =  %d \n star_precision = %d", star_width_arg, star_precision_arg);
+			specifier = read_specifier(flags, list);
+			ft_putstr(specifier);
+			i++;
+			
+			free(specifier);
+			ft_free_struct(flags);
 		}
 		else
 		{
@@ -81,6 +115,6 @@ int main()
 	int a;
 
 	a = 10;
-	ft_printf("yesmine %*.*d", 6, 2, a);
+	ft_printf("yesmine %*dbesbes %dyyyy%*4d",3, 5, 6, 7);
 	return (0);
 }

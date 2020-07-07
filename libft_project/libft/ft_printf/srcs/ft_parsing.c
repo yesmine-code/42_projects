@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 20:03:30 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/06 23:44:17 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/07 22:56:44 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct 	s_flags
 char	*ft_substr(char const *s, unsigned int start, int len);
 int		ft_isdigit(int c);
 char	*ft_strchr(char const *s, int c);
+char	*ft_strdup(const char *s);
 
 char	*get_flags(const char *format, int *i)
 {
@@ -93,6 +94,8 @@ t_flags	ft_parse(const char *format, int	*i)
 		*i = *i + 1;
 		f.precision = get_width(format, i);
 	}
+	else
+		f.precision = ft_strdup("");
 	f.length = get_length(format, i);
 	f.specifier = get_specifier(format, i);
 	return (f);
