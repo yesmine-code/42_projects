@@ -6,27 +6,11 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 20:03:30 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/07 22:56:44 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/08 19:17:30 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct 	s_flags
-{
-	char *flags;
-	char *width;
-	char *precision;
-	char *length;
-	char specifier;
-}		t_flags;
-
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-char	*ft_substr(char const *s, unsigned int start, int len);
-int		ft_isdigit(int c);
-char	*ft_strchr(char const *s, int c);
-char	*ft_strdup(const char *s);
+#include "ft_printf.h"
 
 char	*get_flags(const char *format, int *i)
 {

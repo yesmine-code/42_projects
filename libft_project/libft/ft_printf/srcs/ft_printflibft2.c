@@ -6,13 +6,14 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:38:36 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/07 22:11:52 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/08 19:14:38 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include "ft_printf.h"
+//#include <stdio.h>
+//#include <unistd.h>
+//#include <stdlib.h>
 
 int	ft_isdigit(int c)
 {

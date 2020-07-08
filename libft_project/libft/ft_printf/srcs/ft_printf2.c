@@ -6,29 +6,11 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 22:35:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/07 23:07:49 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/08 19:16:46 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdarg.h>
-
-typedef struct	s_flags
-{
-	char *flags;
-	char *width;
-	char *precision;
-	char *length;
-	char specifier;
-}				t_flags;
-
-
-t_flags	ft_parse(const char *format, int	*i);
-void	ft_putstr(char *s);
-char    *ft_itoa(int n);
-char	*ft_strdup(const char *s);
+#include "ft_printf.h"
 
 void	ft_free_struct(t_flags flags)
 {

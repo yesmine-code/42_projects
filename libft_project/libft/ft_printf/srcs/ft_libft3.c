@@ -6,12 +6,11 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 21:57:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/07 22:11:35 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/08 19:16:59 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
+#include "ft_printf.h"
 
 int		ft_count(int n)
 {
