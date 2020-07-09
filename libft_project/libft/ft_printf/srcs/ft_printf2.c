@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 22:35:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/08 19:16:46 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/09 17:10:27 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,17 @@ char	*read_specifier(t_flags flags, va_list list)
 	if (flags.specifier == 'd')
 	{
 		arg = va_arg(list, int);
-		return (ft_itoa(arg));
+		return (ft_itoa(arg, "0123456789"));
+	}
+	if (flags.specifier == 'x')
+	{
+		arg = va_arg(list, unsigned int);
+		return (ft_itoa(arg, "0123456789abcdef"));
+	}
+	if (flags.specifier == 'X')
+	{
+		arg = va_arg(list, unsigned int);
+		return (ft_itoa(arg, "0123456789ABCDEF"));
 	}
 	return (ft_strdup(""));
 }
@@ -97,6 +107,6 @@ int main()
 	int a;
 
 	a = 10;
-	ft_printf("yesmine %*dbesbes %dyyyy%*4d",3, 5, 6, 7);
+	ft_printf("yesmine %*dbesbes %xyyyy%X",3, 5, 15, 200);
 	return (0);
 }

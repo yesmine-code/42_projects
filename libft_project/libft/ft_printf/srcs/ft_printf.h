@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 10:46:11 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/08 19:11:49 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/09 17:02:10 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ char    *ft_strdup(const char *s);
 char    *ft_substr(char const *s, unsigned int start, int len);
 int     ft_isdigit(int c);
 char    *ft_strchr(char const *s, int c);
-int		ft_count(int n);
-char	*ft_itoa(int n);
+int		ft_count(int n, char *base);
+int		check_base(char *base);
+char	*ft_itoa(int n, char *base);
 
 
 
