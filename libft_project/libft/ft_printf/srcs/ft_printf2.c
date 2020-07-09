@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 22:35:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/09 17:10:27 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/09 22:56:24 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,17 @@ int		ft_read_star_parameter(char *flags, va_list list)
 
 char	*read_specifier(t_flags flags, va_list list)
 {
-	int	arg;
+	int		signed_arg;
+	unsigned int	unsigned_arg;
 
-	if (flags.specifier == 'd')
-	{
-		arg = va_arg(list, int);
-		return (ft_itoa(arg, "0123456789"));
-	}
+	if (flags.specifier == 'd' || flags.specifier == 'i')
+		return (ft_itoa(va_arg(list, int), "0123456789"));
 	if (flags.specifier == 'x')
-	{
-		arg = va_arg(list, unsigned int);
-		return (ft_itoa(arg, "0123456789abcdef"));
-	}
+		return (ft_itoa(va_arg(list, unsigned int), "0123456789abcdef"));
 	if (flags.specifier == 'X')
-	{
-		arg = va_arg(list, unsigned int);
-		return (ft_itoa(arg, "0123456789ABCDEF"));
-	}
+		return (ft_itoa(va_arg(list, unsigned int), "0123456789ABCDEF"));
+	if (flags.specifier == 'o')
+		return(ft_itoa(va_arg(list, unsigned int), "01234567"));
 	return (ft_strdup(""));
 }
 
@@ -107,6 +101,8 @@ int main()
 	int a;
 
 	a = 10;
-	ft_printf("yesmine %*dbesbes %xyyyy%X",3, 5, 15, 200);
+	printf("\n%o , %u, %x, %X\n", -200, -200, -200, -200);
+	ft_printf("\n%o , %u, %x, %X\n", -200, -200, -200, -200);
+	//ft_printf("yesmine %*dbesbes %xyyyy%X",3, 5, -15, -200);
 	return (0);
 }
