@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 22:35:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/09 22:56:24 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/10 20:59:34 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,14 @@ char	*read_specifier(t_flags flags, va_list list)
 
 	if (flags.specifier == 'd' || flags.specifier == 'i')
 		return (ft_itoa(va_arg(list, int), "0123456789"));
+	if (flags.specifier == 'u')
+		return (ft_itoa(va_arg(list, unsigned int), "0123456789"));
 	if (flags.specifier == 'x')
 		return (ft_itoa(va_arg(list, unsigned int), "0123456789abcdef"));
 	if (flags.specifier == 'X')
 		return (ft_itoa(va_arg(list, unsigned int), "0123456789ABCDEF"));
 	if (flags.specifier == 'o')
-		return(ft_itoa(va_arg(list, unsigned int), "01234567"));
+		return (ft_itoa(va_arg(list, unsigned int), "01234567"));
 	return (ft_strdup(""));
 }
 
@@ -103,6 +105,7 @@ int main()
 	a = 10;
 	printf("\n%o , %u, %x, %X\n", -200, -200, -200, -200);
 	ft_printf("\n%o , %u, %x, %X\n", -200, -200, -200, -200);
+	printf("\n%e , %E, %e, %E\n", -200, -200, 3.2, 3.2);
 	//ft_printf("yesmine %*dbesbes %xyyyy%X",3, 5, -15, -200);
 	return (0);
 }

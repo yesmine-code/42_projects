@@ -6,13 +6,13 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 21:57:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/09 22:49:52 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/10 20:53:03 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_count(int n, char *base)
+int		ft_count(long long n, char *base)
 {
 	int	i;
 
@@ -51,15 +51,15 @@ int		check_base(char *base)
 	return (1);
 }
 
-char	*ft_itoa(int n, char *base)
+char	*ft_itoa(long long nbr, char *base)
 {
 	char	*str;
-	int		j;
-	long	nbr;
+	int	length;
+	int	tmp;
 
-	j = ft_count(n, base);
-	nbr = n;
-	str = malloc(sizeof(char) * (ft_count(n, base) + 1));
+	length = ft_count(nbr, base);
+	tmp = length;
+	str = malloc(sizeof(char) * (length + 1));
 	if (str != NULL && check_base(base) == 1)
 	{
 		if (nbr < 0)
@@ -67,14 +67,14 @@ char	*ft_itoa(int n, char *base)
 			str[0] = '-';
 			nbr = nbr * -1;
 		}
-		while (nbr / ft_strlen(base) != 0 && j >= 0)
+		while (nbr / ft_strlen(base) != 0 && length >= 0)
 		{
-			str[j - 1] = base[nbr % ft_strlen(base)];
+			str[length - 1] = base[nbr % ft_strlen(base)];
 			nbr = nbr / ft_strlen(base);
-			j--;
+			length--;
 		}
-		str[j - 1] = base[nbr];
-		str[ft_count(n, base)] = '\0';
+		str[length - 1] = base[nbr];
+		str[tmp] = '\0';
 	}
 	return (str);
 }
