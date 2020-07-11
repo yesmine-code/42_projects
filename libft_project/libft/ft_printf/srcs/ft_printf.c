@@ -1,96 +1,138 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/03 10:40:16 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/06 22:49:30 by ybesbes          ###   ########.fr       */
+/*   Created: 2020/07/06 22:35:15 by ybesbes           #+#    #+#             */
+/*   Updated: 2020/07/11 18:30:14 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "ft_printf.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <stdarg.h>
-#include <stddef.h>
+#include "ft_printf.h"
 
-int	ft_strlen(const char *str);
-void	ft_putchar_fd(char c, int fd);
-void	ft_putnbr_positif_fd(int n, int fd);
-void	ft_putnbr_fd(int n, int fd);
-
-void	ft_printf_int(va_list *my_list)
+void	ft_free_struct(t_flags flags)
 {
-	int num;
-	num = va_arg(*my_list, int);
-	ft_putnbr_fd(num, 1);
+	if (flags.flags != NULL)
+		free(flags.flags);
+	if (flags.width != NULL)
+		free(flags.width);
+	if (flags.precision != NULL)
+		free(flags.precision);
+	if (flags.length != NULL)
+		free(flags.length);
 }
 
-void	ft_printf_string(va_list *my_list)
+int		ft_read_star_parameter(char *flags, va_list list)
 {
-	char *src;
-
-	src = va_arg(*my_list, char *);
-	write(1, src, ft_strlen(src));
-}
-
-void	ft_printf_char(va_list *my_list)
-{
-	char	c;
-
-	c = va_arg(*my_list, int);
-	write(1, &c, 1);
-}
-
-int		findindex(char *tab, char element)
-{
-	int i;
+	int	i;
+	int	star_arg;
 
 	i = 0;
-	while (tab[i] != 0)
+	star_arg = -1;
+	while (flags[i] != '\0')
 	{
-		if (tab[i] == element)
-			return (i);
+		if (flags[i] == '*')
+		{
+			star_arg = va_arg(list, int);
+			break;
+		}
 		i++;
 	}
-	return (-1);
+	return (star_arg);
 }
 
-int	ft_printf(const char *format, ...)
+char	*read_specifier(t_flags flags, va_list list)
 {
-	void(*tabfunction[3])(va_list *) = {ft_printf_int, ft_printf_string, ft_printf_char};
-	int		i;
-	va_list	my_list;
-	char	tabindex[4] = {'d', 's', 'c', 0};
-	int		tmp;
+	if (flags.specifier == 'd' || flags.specifier == 'i')
+		return (ft_itoa(va_arg(list, int), "0123456789"));
+	if (flags.specifier == 'u')
+		return (ft_itoa(va_arg(list, unsigned int), "0123456789"));
+	if (flags.specifier == 'x')
+		return (ft_itoa(va_arg(list, unsigned int), "0123456789abcdef"));
+	if (flags.specifier == 'X')
+		return (ft_itoa(va_arg(list, unsigned int), "0123456789ABCDEF"));
+	if (flags.specifier == 'o')
+		return (ft_itoa(va_arg(list, unsigned int), "01234567"));
+	if (flags.specifier == 'p')
+	{
+		char	*tmp_specifier;
+		char	*tmp_specifier2;
+		int	*ptr;
 
-	tmp = 0;
-	va_start(my_list, format);
+		ptr = va_arg(list, void *);
+		tmp_specifier = ft_itoa((long long)ptr, "0123456789abcdef");
+		tmp_specifier2 = ft_strjoin("0x", tmp_specifier);
+		free(tmp_specifier);
+		return (tmp_specifier2);
+	}
+	if (flags.specifier == 'c')
+	{
+		char	*tmp_specifier;
+		
+		tmp_specifier = malloc(sizeof(char) * 2);
+		tmp_specifier[0] = va_arg(list, int);
+		tmp_specifier[1] = '\0';
+		return (tmp_specifier);
+	}
+	if (flags.specifier == 's')
+	{
+		return (ft_strdup(va_arg(list, char *)));
+	}
+	return (ft_strdup(""));
+}
+
+int		ft_printf(const char *format, ...)
+{
+	int		i;
+	t_flags	flags;
+	va_list	list;
+	int		star_width_arg;
+	int		star_precision_arg;
+	char	*specifier;
+
 	i = 0;
+	va_start(list, format);
 	while (format[i] != '\0')
 	{
-		if (i != 0 && format[i - 1] == '%')
+		if (format[i] == '%')
 		{
-			tmp = findindex(tabindex, format[i]);
-			if (tmp != -1)
-				(*tabfunction[tmp])(&my_list);
+			i++;
+			if (format[i++] == '%')
+				write(1, "%", 1);
+			else
+			{
+				flags = ft_parse(format, &i);
+				star_width_arg = ft_read_star_parameter(flags.width, list);
+				star_precision_arg = ft_read_star_parameter(flags.precision, list);
+				specifier = read_specifier(flags, list);
+				ft_putstr(specifier);
+				i++;
+				free(specifier);
+				ft_free_struct(flags);
+			}
 		}
-		else if (format[i] == '%' && format[i + 1] == '%')
-			write(1, "%", 1);
-		else if (format[i] != '%')
+		else
+		{
 			write(1, &format[i], 1);
-		i++;
+			i++;
+		}
 	}
-	va_end(my_list);
+	va_end(list);
 	return (0);
 }
 
 int main()
 {
-	ft_printf("azerty %s  %c  %d", "qwerty", 'l', 23);
-	printf("\n---------\n");
-	printf("yesmine");
+	int a;
+	int	*ptr;
+
+	a = 10;
+	printf("\n%o , %u, %#x, %X\n", -200, -200, -200, -200);
+	ft_printf("\n%o , %u, %#x, %X\n", -200, -200, -200, -200);
+	printf("\n%%yesmine\n");
+	ft_printf("\n%%yesmine\n");
+	//ft_printf("yesmine %*dbesbes %xyyyy%X",3, 5, -15, -200);
 	return (0);
 }

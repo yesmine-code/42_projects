@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 10:46:11 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/10 20:53:25 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/11 17:50:29 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int     ft_isdigit(int c);
 char    *ft_strchr(char const *s, int c);
 int		check_base(char *base);
 char	*ft_itoa(long long n, char *base);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 
 
