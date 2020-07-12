@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf2.c                                       :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 22:35:15 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/11 18:30:14 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/12 19:13:28 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,34 @@ char	*read_specifier(t_flags flags, va_list list)
 	return (ft_strdup(""));
 }
 
+char		*read_precision(t_flags flags, char *origine, int star_value)
+{
+	char	*result;
+	int	width;
+
+	if (star_value != -1)
+		width = star_value;
+	else if (flags.precision != NULL)
+		width = ft_atoi(flags.precision);
+	else
+		width = -1;
+	if (width != -1)
+	{
+		if (ft_strchr("diuoxX", flags.specifier))
+			result = ft_format(origine, 1, width, '0');
+		else if (flags.specifier == 's')
+		{
+			if (width < ft_strlen(origine))
+				result = ft_substr(origine, 0, width);
+			else
+				result = ft_strdup(origine);
+		}
+	}
+	else
+		result = ft_strdup(origine);
+	return (result);
+}
+
 int		ft_printf(const char *format, ...)
 {
 	int		i;
@@ -91,6 +119,7 @@ int		ft_printf(const char *format, ...)
 	int		star_width_arg;
 	int		star_precision_arg;
 	char	*specifier;
+	char	*precision;
 
 	i = 0;
 	va_start(list, format);
@@ -99,17 +128,22 @@ int		ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			if (format[i++] == '%')
+			if (format[i] == '%')
+			{
 				write(1, "%", 1);
+				i++;
+			}
 			else
 			{
 				flags = ft_parse(format, &i);
 				star_width_arg = ft_read_star_parameter(flags.width, list);
 				star_precision_arg = ft_read_star_parameter(flags.precision, list);
 				specifier = read_specifier(flags, list);
-				ft_putstr(specifier);
+				precision = read_precision(flags, specifier, star_precision_arg);
+				ft_putstr(precision);
 				i++;
 				free(specifier);
+				free(precision);
 				ft_free_struct(flags);
 			}
 		}
@@ -129,10 +163,12 @@ int main()
 	int	*ptr;
 
 	a = 10;
-	printf("\n%o , %u, %#x, %X\n", -200, -200, -200, -200);
-	ft_printf("\n%o , %u, %#x, %X\n", -200, -200, -200, -200);
-	printf("\n%%yesmine\n");
-	ft_printf("\n%%yesmine\n");
+	//printf("\n%o , %u, %#x, %X\n", -200, -200, -200, -200);
+	//ft_printf("\n%o , %u, %#x, %X\n", -200, -200, -200, -200);
+	//printf("\n%%yesmine\n");
+//	ft_printf("\n%%yesmine\n");
 	//ft_printf("yesmine %*dbesbes %xyyyy%X",3, 5, -15, -200);
+	printf("%%d:%d.\t .5s:%.5s.\t .10o:%.10o.\t %%d:%d\n", 1, "yesmine", 30, 1);
+	ft_printf("%%d:%d.\t .5s:%.5s.\t .10o:%.10o.\t %%d:%d\n", 1, "yesmine", 30, 1);
 	return (0);
 }

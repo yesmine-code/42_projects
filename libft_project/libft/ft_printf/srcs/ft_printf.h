@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/03 10:46:11 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/11 17:50:29 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/12 18:05:20 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int     ft_isdigit(int c);
 char    *ft_strchr(char const *s, int c);
 int		check_base(char *base);
 char	*ft_itoa(long long n, char *base);
+int	ft_atoi(const char *nptr);
 char	*ft_strjoin(char const *s1, char const *s2);
 
 
@@ -53,6 +54,7 @@ t_flags	ft_parse(const char *format, int *i);
 int		ft_read_star_parameter(char *flags, va_list list);
 char	*read_specifier(t_flags flags, va_list list);
 void	ft_free_struct(t_flags flags);
+char	*ft_format(char *origine, int align, int width, char flag);
 
 int		printf(const char *format, ...);
 

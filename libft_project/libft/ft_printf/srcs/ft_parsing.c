@@ -6,7 +6,7 @@
 /*   By: ybesbes <ybesbes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 20:03:30 by ybesbes           #+#    #+#             */
-/*   Updated: 2020/07/08 19:17:30 by ybesbes          ###   ########.fr       */
+/*   Updated: 2020/07/12 18:48:50 by ybesbes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*get_width(const char *format, int *i)
 
 	offset = 0;
 	start = (int)*i;
+	
 	while (ft_isdigit(format[*i + offset]) == 1 || format[*i + offset] == '*')
 		offset++;
 	*i = *i + offset;
